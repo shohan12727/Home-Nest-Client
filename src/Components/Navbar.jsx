@@ -20,7 +20,6 @@ export default function Navbar() {
           <span className="text-xl font-bold text-gray-800">HomeNest</span>
         </Link>
 
-        {/* Middle - Navigation Links (Desktop) */}
         <div className="hidden md:flex space-x-8">
           <NavLink
             to="/all-properties"
@@ -48,7 +47,6 @@ export default function Navbar() {
           </NavLink>
         </div>
 
-        {/* Right - Auth Buttons (Desktop) */}
         <div className="hidden md:flex space-x-4">
           <button className="btn btn-outline  rounded-lg hover:bg-blue-50 transition font-medium font-bold">
             Login
@@ -71,36 +69,36 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden pb-4 space-y-3 border-t border-gray-200 mt-2">
-          <a
-            href="#"
-            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition"
+        <div className="md:hidden pb-4 space-y-3 border-t border-gray-200 mt-2 flex flex-col">
+          <NavLink
+            to="/all-properties"
+            className="hover:text-primary transition font-medium"
           >
             All Properties
-          </a>
-          <a
-            href="#"
-            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition"
+          </NavLink>
+          <NavLink
+            to="/my-properties"
+            className="hover:text-primary transition font-medium"
           >
             My Properties
-          </a>
-          <a
-            href="#"
-            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition"
+          </NavLink>
+          <NavLink
+            to="/add-properties"
+            className="hover:text-primary transition font-medium"
           >
             Add Properties
-          </a>
-          <a
-            href="#"
-            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg transition"
+          </NavLink>
+          <NavLink
+            to="/my-ratings"
+            className="hover:text-primary transition font-medium"
           >
             My Ratings
-          </a>
+          </NavLink>
           <div className="flex flex-col space-y-2 pt-2 border-t border-gray-200">
-            <button className="w-full btn-secondary font-medium">Login</button>
-            <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
-              Register
+            <button className="btn btn-outline  rounded-lg hover:bg-blue-50 transition font-medium font-bold">
+              Login
             </button>
+            <button className="btn-primary font-medium">Register</button>
           </div>
         </div>
       )}
