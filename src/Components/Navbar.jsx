@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-base-100 w-11/12 mx-auto dark:bg-base-200 transition-colors duration-300">
+    <nav className="bg-base-100 max-w-7xl px-4 mx-auto dark:bg-base-200 transition-colors duration-300">
       <div className="flex justify-between items-center h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
@@ -133,7 +133,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             onClick={toggleMenu}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg  dark:hover:bg-gray-700 transition-colors"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
