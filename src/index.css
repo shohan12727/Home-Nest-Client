@@ -39,7 +39,7 @@
 
 
 
-/* Custom button override */
+/* Custom button  */
 .btn-primary {
   @apply bg-gradient-to-r from-[#E6B400] via-[#FFD24A] to-[#a47d08a5] border-none text-[#0A1A44] font-semibold;
   padding: 0.5rem 1rem; 

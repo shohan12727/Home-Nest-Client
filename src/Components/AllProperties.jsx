@@ -1,9 +1,12 @@
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
+import { Link } from "react-router";
 
 const AllProperties = () => {
   const axiosSecure = useAxiosSecure();
+
+
   const { data: allProperties = [], isLoading } = useQuery({
     queryKey: ["all-properties"],
     queryFn: async () => {
@@ -97,7 +100,11 @@ const AllProperties = () => {
 
               {/* See Details Button */}
               <div className="card-actions">
-                <button className="btn btn-primary w-full">See Details</button>
+                <Link to={`/property-details/${property._id}`}>
+                  <button className="btn btn-primary w-full">
+                    See Details
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

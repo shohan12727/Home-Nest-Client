@@ -9,6 +9,7 @@ import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import Profile from "../Components/Profile";
 import PrivateRoute from "./PrivateRoute";
+import PropertyDetails from "../Components/PropertyDetails";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddProperties></AddProperties>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/property-details/:id",
+        element: (
+          <PrivateRoute>
+            <PropertyDetails />
           </PrivateRoute>
         ),
       },
