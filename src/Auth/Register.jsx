@@ -69,11 +69,11 @@ const Register = () => {
     <>
     <Navbar/>
       <div className="hero py-2">
-        <div className="card w-full max-w-md mx-auto bg-base-200  p-2">
-          <h2 className="text-2xl font-bold text-center">Register Now</h2>
+        <div className="card w-full max-w-md mx-auto bg-base-200  pt-4">
+          <h2 className="text-2xl font-bold text-center text-primary">Register Now</h2>
           <div className="card-body">
             <form onSubmit={handleSubmit(handleRegister)}>
-              <fieldset className="space-y-4">
+              <fieldset className="space-y-2">
                 <div>
                   {/* Name  */}
                   <label className="label mb-1">Name</label>
