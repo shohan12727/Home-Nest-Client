@@ -6,14 +6,14 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #c8a045;
-  --color-secondary: #0a1a44;
+  --color-primary: #E6B400;
+  --color-secondary: #FFD24A;
 }
 
 /* Custom button override */
 .btn-primary {
   @apply bg-gradient-to-r from-[#E6B400] via-[#FFD24A] to-[#a47d08a5] border-none text-[#0A1A44] font-semibold;
-  padding: 0.5rem 1rem; /* safe fallback for non-tailwind consumers */
+  padding: 0.5rem 1rem; 
   border-radius: 0.5rem;
   box-shadow: 0 6px 18px rgba(230, 180, 0, 0.18);
 }
