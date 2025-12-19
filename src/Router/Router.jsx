@@ -8,6 +8,7 @@ import MyRating from "../Components/MyRating";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import Profile from "../Components/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-properties",
-        element: <Myproperties></Myproperties>,
+        element: (
+          <PrivateRoute>
+            <Myproperties></Myproperties>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-properties",

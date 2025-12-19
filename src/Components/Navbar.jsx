@@ -194,12 +194,14 @@ export default function Navbar() {
           >
             All Properties
           </NavLink>
-          <NavLink
-            to="/my-properties"
-            className="hover:text-primary transition-colors text-base-content"
-          >
-            My Properties
-          </NavLink>
+          {user && (
+            <NavLink
+              to="/my-properties"
+              className="hover:text-primary transition-colors text-base-content"
+            >
+              My Properties
+            </NavLink>
+          )}
           <NavLink
             to="/add-properties"
             className="hover:text-primary transition-colors text-base-content"
@@ -291,12 +293,14 @@ export default function Navbar() {
           >
             All Properties
           </NavLink>
-          <NavLink
-            to="/my-properties"
-            className="hover:text-primary transition-colors text-base-content"
-          >
-            My Properties
-          </NavLink>
+          {user && (
+            <NavLink
+              to="/my-properties"
+              className="hover:text-primary transition-colors text-base-content"
+            >
+              My Properties
+            </NavLink>
+          )}
           <NavLink
             to="/add-properties"
             className="hover:text-primary transition-colors text-base-content"
