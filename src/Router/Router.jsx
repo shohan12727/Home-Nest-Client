@@ -7,6 +7,7 @@ import AddProperties from "../Components/AddProperties";
 import MyRating from "../Components/MyRating";
 import Login from "../Auth/Login";
 import Register from "../Auth/Register";
+import Profile from "../Components/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-ratings",
         element: <MyRating></MyRating>,
+      },
+      {
+        path: "/user-profile",
+        element: <Profile />,
       },
     ],
   },

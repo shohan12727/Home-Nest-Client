@@ -150,7 +150,7 @@ const Login = () => {
                   ></path>
                 </g>
               </svg>
-              <span className="ml-2">Login with Google</span>
+              <span className="ml-2">Continue with Google</span>
             </button>
 
             <p className="text-center font-bold mt-4">

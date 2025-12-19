@@ -5,7 +5,7 @@ import { Navigation } from "swiper/modules";
 import building1 from "../assets/build1.png";
 import building2 from "../assets/build2.png";
 import building3 from "../assets/build3.png";
-console.log(building2, building1);
+
 
 // Swiper styles
 import "swiper/css";

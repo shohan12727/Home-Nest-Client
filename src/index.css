@@ -3,19 +3,18 @@
 @plugin "daisyui" {
   themes: light --default;
 }
-
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #C8A045;   
-  --color-secondary: #0A1A44; 
+  --color-primary: #c8a045;
+  --color-secondary: #0a1a44;
 }
 
 /* Custom button override */
 .btn-primary {
   @apply bg-gradient-to-r from-[#E6B400] via-[#FFD24A] to-[#a47d08a5] border-none text-[#0A1A44] font-semibold;
-  padding: .5rem 1rem; /* safe fallback for non-tailwind consumers */
-  border-radius: .5rem;
+  padding: 0.5rem 1rem; /* safe fallback for non-tailwind consumers */
+  border-radius: 0.5rem;
   box-shadow: 0 6px 18px rgba(230, 180, 0, 0.18);
 }
 .btn-primary:hover {
@@ -23,10 +22,9 @@
   transform: translateY(-1px);
   transition: transform 150ms ease, filter 150ms ease;
 }
-.active{
-  text-decoration: underline;
-   @apply bg-gradient-to-r from-[#E6B400] via-[#FFD24A] to-[#a47d08a5] border-none text-[#0A1A44] font-semibold;
-  padding: .5rem 1rem; /* safe fallback for non-tailwind consumers */
-  border-radius: .5rem;
-  box-shadow: 0 6px 18px rgba(230, 180, 0, 0.18);
+.active {
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 4px;
+  color: #e6b400;
+  transition: border-bottom 0.3s ease, color 0.3s ease;
 }

@@ -2,104 +2,147 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/logo.png";
 import { Link, NavLink } from "react-router";
+import useAuth from "../hooks/useAuth";
+import ThemeToggle from "./ThemeToggle";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { user, logOut } = useAuth();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged out successfully");
+        setIsDropdownOpen(false);
+      })
+      .catch(() => toast.error("Logout failed. Please try again."));
   };
 
   return (
     <nav className="bg-white w-11/12 mx-auto">
       <div className="flex justify-between items-center h-16">
-        <Link to="/" className="flex items-center space-x-1">
-          <div className="w-10 h-10 flex items-center justify-center">
-            <img className="rounded" src={logo} alt="" />
-          </div>
-          <span className="text-xl font-bold text-gray-800">HomeNest</span>
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-2">
+          <img src={logo} alt="HomeNest" className="w-10 h-10 rounded" />
+          <span className="text-xl font-semibold text-gray-800">HomeNest</span>
         </Link>
 
-        <div className="hidden md:flex space-x-8">
-          <NavLink
-            to="/all-properties"
-            className="hover:text-primary transition font-medium"
-          >
-            All Properties
-          </NavLink>
-          <NavLink
-            to="/my-properties"
-            className="hover:text-primary transition font-medium"
-          >
-            My Properties
-          </NavLink>
-          <NavLink
-            to="/add-properties"
-            className="hover:text-primary transition font-medium"
-          >
-            Add Properties
-          </NavLink>
-          <NavLink
-            to="/my-ratings"
-            className="hover:text-primary transition font-medium"
-          >
-            My Ratings
-          </NavLink>
+        {/* Desktop Middle Menu */}
+        <div className="hidden md:flex space-x-8 font-semibold">
+          <NavLink to="/all-properties">All Properties</NavLink>
+          <NavLink to="/my-properties">My Properties</NavLink>
+          <NavLink to="/add-properties">Add Properties</NavLink>
+          <NavLink to="/my-ratings">My Ratings</NavLink>
         </div>
 
-        <div className="hidden md:flex space-x-4">
-          <Link to='/login' className="btn btn-outline  rounded-lg hover:bg-blue-50 transition font-bold">
-            Login
-          </Link>
-          <Link to='/register' className="btn-primary font-medium">Register</Link>
-        </div>
+        {/* Desktop Right Side */}
+        <div className="hidden md:flex items-center space-x-4">
+          <ThemeToggle />
 
-        {/* Hamburger Menu (Mobile) */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
-        >
-          {isOpen ? (
-            <X size={24} className="text-gray-800" />
-          ) : (
-            <Menu size={24} className="text-gray-800" />
+          {/* Avatar (Only if user exists) */}
+          {user && (
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="w-10 h-10 rounded-full overflow-hidden border shadow"
+              >
+                <img
+                  src={user?.photoURL}
+                  alt="User"
+                  className="w-full h-full object-cover"
+                />
+              </button>
+
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-xl shadow-lg py-2 z-50">
+                  <Link
+                    to="/user-profile"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    My Profile
+                  </Link>
+                </div>
+              )}
+            </div>
           )}
-        </button>
+
+          {/* Login / Logout  */}
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="btn btn-outline btn-primary font-semibold"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login">
+              <button className="btn btn-outline btn-primary font-semibold">
+                Login
+              </button>
+            </Link>
+          )}
+
+          {/* Register  */}
+          <Link to="/register">
+            <button className="btn btn-primary text-white font-semibold">
+              Sign Up
+            </button>
+          </Link>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        {/* Theme Toggle*/}
+        <div className="md:hidden flex justify-center items-center ">
+          <ThemeToggle />
+          <button
+            onClick={toggleMenu}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden pb-4 space-y-3 border-t border-gray-200 mt-2 flex flex-col">
-          <NavLink
-            to="/all-properties"
-            className="hover:text-primary transition font-medium"
-          >
-            All Properties
-          </NavLink>
-          <NavLink
-            to="/my-properties"
-            className="hover:text-primary transition font-medium"
-          >
-            My Properties
-          </NavLink>
-          <NavLink
-            to="/add-properties"
-            className="hover:text-primary transition font-medium"
-          >
-            Add Properties
-          </NavLink>
-          <NavLink
-            to="/my-ratings"
-            className="hover:text-primary transition font-medium"
-          >
-            My Ratings
-          </NavLink>
-          <div className="flex flex-col space-y-2 pt-2 border-t border-gray-200">
-            <Link to='/login' className="btn btn-outline  rounded-lg hover:bg-blue-50 transition  font-bold">
+        <div className="md:hidden flex flex-col space-y-3 mt-3 border-t pt-3 font-semibold">
+          <NavLink to="/all-properties">All Properties</NavLink>
+          <NavLink to="/my-properties">My Properties</NavLink>
+          <NavLink to="/add-properties">Add Properties</NavLink>
+          <NavLink to="/my-ratings">My Ratings</NavLink>
+
+          {/* Avatar & Profile (Mobile) */}
+          {user && (
+            <Link to="/user-profile" className="flex items-center gap-3">
+              My Profile
+            </Link>
+          )}
+
+          {/* Login / Logout */}
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="btn btn-outline btn-primary"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="btn btn-outline btn-primary">
               Login
             </Link>
-            <Link to='/register' className="btn-primary font-medium">Register</Link>
-          </div>
+          )}
+
+          {/* Register (Always Visible) */}
+          <Link to="/register" className="btn btn-primary text-white">
+            Sign Up
+          </Link>
         </div>
       )}
     </nav>
