@@ -4,7 +4,6 @@ import LoadingSpinner from "./LoadingSpinner";
 
 const AllProperties = () => {
   const axiosSecure = useAxiosSecure();
-
   const { data: allProperties = [], isLoading } = useQuery({
     queryKey: ["all-properties"],
     queryFn: async () => {
@@ -18,64 +17,101 @@ const AllProperties = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-8 text-center">
-        All Properties
-      </h2>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 text-center">All Properties</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {allProperties.map((property) => (
           <div
             key={property._id}
-            className="card bg-base-100 shadow-xl border border-base-200"
+            className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
           >
-            {/* Thumbnail Image */}
-            <figure className="h-48 overflow-hidden">
+            {/* Property Image */}
+            <figure className="h-56 overflow-hidden">
               <img
                 src={property.image}
                 alt={property.propertyName}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </figure>
 
-            <div className="card-body">
+            <div className="card-body p-4">
               {/* Property Name */}
-              <h2 className="card-title text-lg font-semibold">
+              <h2 className="card-title text-xl font-bold mb-2">
                 {property.propertyName}
               </h2>
 
-              {/* Category */}
-              <p className="text-sm">
-                <span className="font-medium">Category:</span>{" "}
-                {property.category}
-              </p>
+              {/* Category and Price in one line */}
+              <div className="flex items-center justify-between mb-2">
+                <div className="badge badge-secondary badge-outline">
+                  {property.category}
+                </div>
+                <div className="text-xl font-bold text-primary">
+                  ${property.price.toLocaleString()}
+                </div>
+              </div>
 
-              {/* Location */}
-              <p className="text-sm">
-                <span className="font-medium">Location:</span>{" "}
-                {property.location}
-              </p>
+              {/* Location and Posted by in one line */}
+              <div className="flex items-center justify-between text-sm mb-3">
+                <div className="flex items-center gap-1 opacity-80">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <span>{property.location}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                  <span className="font-semibold">{property.vendorName}</span>
+                </div>
+              </div>
 
-              {/* Price */}
-              <p className="text-lg font-bold text-primary">
-                ${property.price}
-              </p>
-
-              {/* Vendor */}
-              <p className="text-sm text-gray-500">
-                Posted by: {property.vendorName}
-              </p>
-
-              {/* Button */}
-              <div className="card-actions mt-4">
-                <button className="btn btn-primary w-full">
-                  See Details
-                </button>
+              {/* See Details Button */}
+              <div className="card-actions">
+                <button className="btn btn-primary w-full">See Details</button>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Empty State */}
+      {allProperties.length === 0 && (
+        <div className="text-center py-16">
+          <p className="text-xl opacity-70">
+            No properties available at the moment.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
