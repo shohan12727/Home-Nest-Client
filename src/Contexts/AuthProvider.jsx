@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import { useEffect, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../Firebase/firebase.config";
 
+import { AuthContext } from "./AuthContext";
+import { app } from "../Firebase/firebase.config";
+
+const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
@@ -20,7 +24,8 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const signInUser = (email, password) => {
+
+  const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -30,32 +35,40 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-  const signOutUser = () => {
+  const logOut = async () => {
     setLoading(true);
     return signOut(auth);
   };
-  const logIn = (email, password) => {
-    setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
+
+  // onAuthStateChange
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      // console.log("CurrentUser", currentUser?.email);
       setUser(currentUser);
       setLoading(false);
     });
     return () => {
-      unsubscribe();
+      return unsubscribe();
     };
   }, []);
 
   const authInfo = {
-    createUser,
-    signInUser,
-    signInWithGoogle,
-    signOutUser,
     user,
     setUser,
-    logIn,
+    loading,
+    setLoading,
+    createUser,
+    signIn,
+    signInWithGoogle,
+    logOut,
+    updateUserProfile,
   };
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;

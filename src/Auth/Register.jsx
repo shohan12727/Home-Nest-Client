@@ -1,50 +1,50 @@
-import Navbar from "../Components/Navbar";
 import { Link, useNavigate } from "react-router";
-import Footer from "../Components/Footer";
 import { use, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import LoadingSpinner from "../Components/LoadingSpinner";
 import { AuthContext } from "../Contexts/AuthContext";
+import toast from "react-hot-toast";
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 const Register = () => {
-  const { createUser, setUser, signInWithGoogle } = use(AuthContext);
+  const { createUser, setUser, signInWithGoogle, updateUserProfile } =
+    use(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    // createUser hosche eikhane
+  // react hook form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (!passwordRegex.test(password)) {
-      toast.error(
-        "Password must be at least 6 characters long and include both uppercase and lowercase letters."
-      );
-      return;
-    }
+  const handleRegister = async (data) => {
+    const { name, image, email, password } = data;
+    setLoading(true);
 
-    createUser(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        // userUpdate({ displayName: name, photoURL: photo })
-        //   .then(() => {
-        //     setUser({ ...user, displayName: name, photoURL: photo });
-        //     toast.success("Account created successfully!");
-        //     e.target.reset();
-        //     navigate("/");
-        //   })
-        //   .catch((error) => {
-        //     toast.error(error.message);
-        //   });
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        toast.error(errorMessage);
+    try {
+      //1. User Registration
+      const result = await createUser(email, password);
+      await updateUserProfile(name, image);
+      //  updated user
+      setUser({
+        ...result.user,
+        displayName: name,
+        photoURL: image,
       });
+
+      navigate("/");
+      toast.success("Signup Successfully");
+    } catch (err) {
+      toast.error(err?.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSignInWithGoogle = () => {
@@ -52,11 +52,7 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        toast.success(
-          `Welcome ${
-            user.displayName || "User"
-          }!`
-        );
+        toast.success(`Welcome ${user.displayName || "User"}!`);
         navigate("/");
       })
       .catch((error) => {
@@ -65,57 +61,85 @@ const Register = () => {
       });
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
-      <Navbar />
-      <div className="hero bg-base-200 py-2">
-        <div className="card w-full max-w-md mx-auto shadow-lg p-2">
+    <Navbar/>
+      <div className="hero py-2">
+        <div className="card w-full max-w-md mx-auto bg-base-200  p-2">
           <h2 className="text-2xl font-bold text-center">Register Now</h2>
           <div className="card-body">
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleSubmit(handleRegister)}>
               <fieldset className="space-y-4">
                 <div>
                   {/* Name  */}
                   <label className="label mb-1">Name</label>
                   <input
-                    name="name"
+                    {...register("name", { required: true, maxLength: 40 })}
                     type="text"
                     className="input w-full"
                     placeholder="Name"
-                    required
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.name.type === "required" && "Name is required."}
+                      {errors.name.type === "maxLength" &&
+                        "Name cannot exceed 40 characters."}
+                    </p>
+                  )}
                 </div>
                 <div>
-                  {/* Photo-URL  */}
-                  <label className="label mb-1">Photo-URL</label>
+                  {/* image  */}
+                  <label htmlFor="image" className="label mb-2">
+                    Image URL
+                  </label>
                   <input
-                    name="photo"
+                    {...register("image", {
+                      required: "Image URL is required",
+                    })}
                     type="text"
                     className="input w-full"
-                    placeholder="Photo-URL"
-                    required
+                    placeholder="Image"
                   />
-                </div>
-                <div>
+
+                  {errors.image && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.image.message}
+                    </p>
+                  )}
+
                   {/* email  */}
-                  <label className="label mb-1">Email</label>
+                  <label className="label mb-1 mt-2">Email</label>
                   <input
-                    name="email"
+                    {...register("email", { required: "Email is required." })}
                     type="email"
                     className="input w-full"
                     placeholder="Email"
-                    required
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 {/* password */}
                 <div className="relative">
                   <label className="label mb-1">Password</label>
                   <input
-                    name="password"
+                    {...register("password", {
+                      required: "Password is required.",
+                      pattern: {
+                        value: /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/,
+                        message:
+                          "Password must include uppercase, lowercase, and be at least 6 characters long.",
+                      },
+                    })}
                     type={showPassword ? "text" : "password"}
                     className="input w-full focus:outline-none focus:ring-0"
                     placeholder="Password"
-                    required
                   />
                   <button
                     type="button"
@@ -131,7 +155,15 @@ const Register = () => {
                     )}
                   </button>
                 </div>
-                <button type="submit" className="btn btn-neutral w-full">
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  className="btn btn-primary text-white w-full"
+                >
                   Register
                 </button>
               </fieldset>
@@ -174,20 +206,19 @@ const Register = () => {
                   ></path>
                 </g>
               </svg>
-              <span className="ml-2">Login with Google</span>
+              <span className="ml-2">Continue with Google</span>
             </button>
 
             <p className="text-center font-bold mt-4">
               Already Have An Account?{" "}
-              <Link to={`/login`} className="text-[#464098] underline">
+              <Link to={`/login`} className="text-primary underline">
                 Login
               </Link>
             </p>
           </div>
         </div>
-        <Toaster position="top-right" reverseOrder={false} />
       </div>
-      <Footer />
+      <Footer/>
     </>
   );
 };
