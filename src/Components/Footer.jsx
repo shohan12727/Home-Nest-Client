@@ -13,8 +13,10 @@ const Footer = () => {
             <h2 className="text-xl font-semibold text-primary">HomeNest</h2>
           </div>
 
-          <p className="mt-4 text-sm opacity-80 leading-relaxed">
-            A modern platform to manage, explore, and book homes seamlessly.
+          <p className="mt-4 text-sm  leading-relaxed">
+            Redefining the home-booking experience through a modern, intelligent
+            platform built for effortless discovery,  and
+            reservations.
           </p>
         </div>
 

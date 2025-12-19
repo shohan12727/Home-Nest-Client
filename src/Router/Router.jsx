@@ -33,7 +33,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add-properties",
-        element: <AddProperties></AddProperties>,
+        element: (
+          <PrivateRoute>
+            <AddProperties></AddProperties>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-ratings",
