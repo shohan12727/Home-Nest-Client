@@ -54,6 +54,7 @@ const PropertyDetails = () => {
       return res.data;
     },
   });
+  
 
   const {
     register,
@@ -73,6 +74,7 @@ const PropertyDetails = () => {
     //  POST 
     try {
       const ticketReviewData = {
+        propertyId: propertiesDetails._id,
         reviewerName: user?.displayName,
         reviewerEmail : user?.email,
         starRating: data.rating,
