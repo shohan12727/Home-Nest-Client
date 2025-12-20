@@ -10,6 +10,8 @@ import Register from "../Auth/Register";
 import Profile from "../Components/Profile";
 import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
+import About from "../Components/About";
+import Contact from "../Components/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ export const router = createBrowserRouter([
       {
         path: "/all-properties",
         Component: AllProperties,
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/my-properties",

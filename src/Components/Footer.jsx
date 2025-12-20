@@ -5,12 +5,14 @@ import { Link } from "react-router";
 const Footer = () => {
   return (
     <footer className="bg-base-200 text-base-content">
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-3">
-            <img src={logo} alt="HomeNest Logo" className="h-10 w-10" />
-            <h2 className="text-xl font-semibold text-primary">HomeNest</h2>
+            <img src={logo} alt="HomeNest Logo" className="h-10 w-10 rounded" />
+             <span className="text-xl font-bold text-base-content">
+            Home<span className="text-primary font-bold">Nest</span>
+          </span>
           </div>
 
           <p className="mt-4 text-sm  leading-relaxed">

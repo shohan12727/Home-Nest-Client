@@ -30,8 +30,8 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
           <img src={logo} alt="HomeNest" className="w-10 h-10 rounded" />
-          <span className="text-xl font-semibold text-base-content">
-            HomeNest
+          <span className="text-xl font-bold text-base-content">
+            Home<span className="text-primary font-bold">Nest</span>
           </span>
         </Link>
 
@@ -49,6 +49,18 @@ export default function Navbar() {
             className="hover:text-primary transition-colors text-base-content"
           >
             All Properties
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="hover:text-primary transition-colors text-base-content"
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="hover:text-primary transition-colors text-base-content"
+          >
+            Contact
           </NavLink>
           {user && (
             <NavLink
@@ -152,6 +164,18 @@ export default function Navbar() {
             className="hover:text-primary transition-colors text-base-content"
           >
             All Properties
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="hover:text-primary transition-colors text-base-content"
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="hover:text-primary transition-colors text-base-content"
+          >
+            Contact
           </NavLink>
           {user && (
             <NavLink
