@@ -36,13 +36,13 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Middle Menu */}
-       
+
         <div className="hidden md:flex space-x-6 font-semibold text-gray-700 dark:text-gray-200">
-           <NavLink
+          <NavLink
             to="/"
             className="hover:text-primary transition-colors text-base-content"
           >
-           Home
+            Home
           </NavLink>
           <NavLink
             to="/all-properties"
@@ -58,18 +58,22 @@ export default function Navbar() {
               My Properties
             </NavLink>
           )}
-          <NavLink
-            to="/add-properties"
-            className="hover:text-primary transition-colors text-base-content"
-          >
-            Add Properties
-          </NavLink>
-          <NavLink
-            to="/my-ratings"
-            className="hover:text-primary transition-colors text-base-content"
-          >
-            My Ratings
-          </NavLink>
+          {user && (
+            <NavLink
+              to="/add-properties"
+              className="hover:text-primary transition-colors text-base-content"
+            >
+              Add Properties
+            </NavLink>
+          )}
+          {user && (
+            <NavLink
+              to="/my-ratings"
+              className="hover:text-primary transition-colors text-base-content"
+            >
+              My Ratings
+            </NavLink>
+          )}
         </div>
 
         {/* Desktop Right Side */}
@@ -157,18 +161,22 @@ export default function Navbar() {
               My Properties
             </NavLink>
           )}
-          <NavLink
-            to="/add-properties"
-            className="hover:text-primary transition-colors text-base-content"
-          >
-            Add Properties
-          </NavLink>
-          <NavLink
-            to="/my-ratings"
-            className="hover:text-primary transition-colors text-base-content"
-          >
-            My Ratings
-          </NavLink>
+          {user && (
+            <NavLink
+              to="/add-properties"
+              className="hover:text-primary transition-colors text-base-content"
+            >
+              Add Properties
+            </NavLink>
+          )}
+          {user && (
+            <NavLink
+              to="/my-ratings"
+              className="hover:text-primary transition-colors text-base-content"
+            >
+              My Ratings
+            </NavLink>
+          )}
 
           {/* Avatar & Profile (Mobile) */}
           {user && (

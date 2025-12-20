@@ -74,6 +74,7 @@ const PropertyDetails = () => {
     try {
       const ticketReviewData = {
         reviewerName: user?.displayName,
+        reviewerEmail : user?.email,
         starRating: data.rating,
         reviewText: data.review,
         propertyName: propertiesDetails.propertyName,
