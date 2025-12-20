@@ -50,7 +50,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-ratings",
-        element: <MyRating></MyRating>,
+        element: (
+          <PrivateRoute>
+            <MyRating></MyRating>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/user-profile",
