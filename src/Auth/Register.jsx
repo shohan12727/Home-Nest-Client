@@ -68,7 +68,7 @@ const Register = () => {
   return (
     <>
     <Navbar/>
-      <div className="hero py-2">
+      <div className="hero py-2 dotted-bg">
         <div className="card w-full max-w-md mx-auto bg-base-200  pt-4">
           <h2 className="text-2xl font-bold text-center text-primary">Register Now</h2>
           <div className="card-body">

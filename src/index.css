@@ -60,3 +60,76 @@
   color: #e6b400;
   transition: border-bottom 0.3s ease, color 0.3s ease;
 }
+
+
+
+
+/* grid background  */
+
+/* Apply grid background ONLY in light theme */
+[data-theme="light"] .grid-bg {
+  background-image: 
+    linear-gradient(#ddd 1px, transparent 1px),
+    linear-gradient(90deg, #ddd 1px, transparent 1px);
+  background-size: 60px 60px;
+
+}
+
+[data-theme="light"]  .dotted-bg{
+  background-image: radial-gradient(circle, #ddd 2px, transparent 2px);
+background-size: 30px 30px;
+}
+
+/* Remove background in dark theme */
+[data-theme="dark"] .grid-bg {
+  background-image: none;
+}
+
+
+/* bg -collection  */
+/* 
+1.  Dotted Pattern
+background-image: radial-gradient(circle, #ddd 2px, transparent 2px);
+background-size: 30px 30px;
+
+2. Diagonal Stripes
+background-image: repeating-linear-gradient(
+  45deg,
+  #f0f0f0,
+  #f0f0f0 10px,
+  #fff 10px,
+  #fff 20px
+);
+
+3. Checkerboard
+background-image: 
+  linear-gradient(45deg, #ddd 25%, transparent 25%),
+  linear-gradient(-45deg, #ddd 25%, transparent 25%),
+  linear-gradient(45deg, transparent 75%, #ddd 75%),
+  linear-gradient(-45deg, transparent 75%, #ddd 75%);
+background-size: 40px 40px;
+background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+
+4. Isometric Grid
+background-image:
+  linear-gradient(30deg, #ddd 12%, transparent 12.5%, transparent 87%, #ddd 87.5%),
+  linear-gradient(150deg, #ddd 12%, transparent 12.5%, transparent 87%, #ddd 87.5%),
+  linear-gradient(30deg, #ddd 12%, transparent 12.5%, transparent 87%, #ddd 87.5%),
+  linear-gradient(150deg, #ddd 12%, transparent 12.5%, transparent 87%, #ddd 87.5%);
+background-size: 80px 140px;
+background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+
+5. Blueprint Style
+background-color: #269;
+background-image: 
+  linear-gradient(white 2px, transparent 2px),
+  linear-gradient(90deg, white 2px, transparent 2px),
+  linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+
+6. Polka Dots
+background-image: radial-gradient(circle, #ddd 20%, transparent 20%);
+background-size: 50px 50px;
+background-position: 0 0, 25px 25px; */

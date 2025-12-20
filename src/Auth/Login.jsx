@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="grid-bg py-12 flex items-center justify-center">
+      <div className="dotted-bg py-12 flex items-center justify-center">
         <div className="card w-full max-w-md mx-auto bg-base-200 shadow-xl rounded-lg transition-colors">
           <h2 className="text-3xl font-bold text-center text-primary mt-4">
             Login Now

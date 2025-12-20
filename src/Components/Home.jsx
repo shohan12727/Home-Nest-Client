@@ -5,7 +5,7 @@ import LuxuryStats from "./LuxuryStats";
 
 const Home = () => {
   return (
-    <div>
+    <div>  
       <Banner></Banner>
       <HowItWorks></HowItWorks>
       <LuxuryStats></LuxuryStats>
