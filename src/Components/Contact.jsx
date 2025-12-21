@@ -83,28 +83,6 @@ const Contact = () => {
     });
   };
 
-  const faqs = [
-    {
-      question: "How do I list my property on HomeNest?",
-      answer:
-        "Simply create an account, navigate to 'Add Properties' from the menu, fill in your property details, and submit. Your listing will be live immediately.",
-    },
-    {
-      question: "Is there a fee for listing properties?",
-      answer:
-        "Basic listings are completely free. We also offer premium listing options with enhanced visibility for a small fee.",
-    },
-    {
-      question: "How can I contact property owners?",
-      answer:
-        "Once you're logged in, view any property details page and you'll find the owner's contact information including email and phone number.",
-    },
-    {
-      question: "Can I edit or delete my property listing?",
-      answer:
-        "Yes! Go to 'My Properties' page where you can update or delete any of your listings at any time.",
-    },
-  ];
 
   return (
     <div className="min-h-screen">
@@ -263,40 +241,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* FAQ Section */}
-      <div className="py-20 bg-base-100">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-center text-lg mb-12 opacity-80">
-              Quick answers to common questions about HomeNest
-            </p>
-
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div
-                  key={index}
-                  className="collapse collapse-plus bg-base-200 rounded-lg"
-                >
-                  <input
-                    type="radio"
-                    name="faq-accordion"
-                    defaultChecked={index === 0}
-                  />
-                  <div className="collapse-title text-xl font-semibold">
-                    {faq.question}
-                  </div>
-                  <div className="collapse-content">
-                    <p className="opacity-80 leading-relaxed">{faq.answer}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
       {/* CTA Section */}
       <div className="py-20 bg-gradient-to-r from-[#E6B400] via-[#FFD24A] to-[#E6B400]">

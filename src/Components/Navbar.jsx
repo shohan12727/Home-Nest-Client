@@ -160,6 +160,12 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-3 mt-3 border-t border-gray-200 dark:border-gray-700 pt-3 font-semibold text-gray-700 dark:text-gray-200 transition-colors">
           <NavLink
+            to="/"
+            className="hover:text-primary transition-colors text-base-content"
+          >
+            Home
+          </NavLink>
+          <NavLink
             to="/all-properties"
             className="hover:text-primary transition-colors text-base-content"
           >
