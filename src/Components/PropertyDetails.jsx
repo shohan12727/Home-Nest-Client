@@ -51,10 +51,19 @@ const PropertyDetails = () => {
     queryKey: ["properties-details", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/properties-details/${id}`);
+
       return res.data;
     },
   });
-  
+
+  const { data: allReviews = [], refetch: refetchReviews } = useQuery({
+    queryKey: ["all-reviews", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/reviews/${id}`);
+
+      return res.data;
+    },
+  });
 
   const {
     register,
@@ -70,13 +79,12 @@ const PropertyDetails = () => {
   });
 
   const onSubmitReview = async (data) => {
-  
-    //  POST 
+    //  POST
     try {
       const ticketReviewData = {
         propertyId: propertiesDetails._id,
         reviewerName: user?.displayName,
-        reviewerEmail : user?.email,
+        reviewerEmail: user?.email,
         starRating: data.rating,
         reviewText: data.review,
         propertyName: propertiesDetails.propertyName,
@@ -91,6 +99,7 @@ const PropertyDetails = () => {
           draggable: true,
         });
         reset();
+        refetchReviews();
       } else {
         Swal.fire({
           icon: "error",
@@ -289,6 +298,55 @@ const PropertyDetails = () => {
               Submit Review
             </button>
           </form>
+        </div>
+
+        {/* All Reviews List */}
+        <div className="mt-10 space-y-6">
+          <h3 className="text-2xl font-bold text-base-content">
+            All Reviews ({allReviews.length})
+          </h3>
+
+          {allReviews.length === 0 ? (
+            <p className="text-base-content/60">No reviews yet.</p>
+          ) : (
+            allReviews.map((review) => (
+              <div
+                key={review._id}
+                className="bg-base-100 rounded-xl p-5 shadow-md border border-base-300"
+              >
+                {/* Reviewer Info */}
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h4 className="font-semibold text-lg text-base-content">
+                      {review.reviewerName}
+                    </h4>
+                    <p className="text-sm text-base-content/60">
+                      {new Date(review.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+
+                  {/* Star Rating */}
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 ${
+                          i < review.starRating
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Review Text */}
+                <p className="text-base-content/80 leading-relaxed">
+                  {review.reviewText}
+                </p>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

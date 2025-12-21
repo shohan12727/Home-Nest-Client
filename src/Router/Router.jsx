@@ -12,10 +12,12 @@ import PrivateRoute from "./PrivateRoute";
 import PropertyDetails from "../Components/PropertyDetails";
 import About from "../Components/About";
 import Contact from "../Components/Contact";
+import ErrorPage from "../Components/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorPage />,
     Component: Root,
     children: [
       {
