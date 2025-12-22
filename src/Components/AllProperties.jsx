@@ -2,10 +2,11 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
 import { Link } from "react-router";
+import { useState } from "react";
 
 const AllProperties = () => {
   const axiosSecure = useAxiosSecure();
-
+  const [searchText, setSearchText] = useState("");
 
   const { data: allProperties = [], isLoading } = useQuery({
     queryKey: ["all-properties"],
@@ -15,16 +16,32 @@ const AllProperties = () => {
     },
   });
 
+  const filteredProperties = allProperties.filter((property) =>
+    property.propertyName.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-primary mb-8 text-center">All Properties</h1>
+      <h1 className="text-4xl font-bold text-primary mb-8 text-center">
+        All Properties
+      </h1>
+
+      <div className="max-w-md mx-auto mb-8">
+        <input
+          type="text"
+          placeholder="Search by property name..."
+          className="input input-bordered w-full"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {allProperties.map((property) => (
+        {filteredProperties.map((property) => (
           <div
             key={property._id}
             className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
